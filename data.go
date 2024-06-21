@@ -1,14 +1,12 @@
 package main
 
 import (
-	"context"
-	"log"
-
-	"github.com/shurcooL/graphql"
+	"encoding/json"
+	"os"
 )
 
 type Spell struct {
-	Id   string `graphql:"index"`
+	Id   string `json:"index"`
 	Name string
 
 	Level  int
@@ -17,39 +15,37 @@ type Spell struct {
 	}
 	Ritual bool
 
-	CastingTime  string `graphql:"casting_time"`
+	CastingTime  string `json:"casting_time"`
 	Range        string
 	AreaOfEffect struct {
 		Size int
 		Type string
-	} `graphql:"area_of_effect"`
+	} `json:"area_of_effect"`
 	Components    []string
 	Material      string
 	Concentration bool
 	Duration      string
 
 	Desc        []string
-	HigherLevel []string `graphql:"higher_level"`
+	HigherLevel []string `json:"higher_level"`
 
 	Classes []struct {
 		Name string
 	}
 }
 
-var Spells []Spell
-
-func init() {
-	q := struct {
-		Spells []Spell `graphql:"spells(limit: 500)"`
-	}{}
-
-	url := "http://www.dnd5eapi.co/graphql"
-	client := graphql.NewClient(url, nil)
-
-	err := client.Query(context.Background(), &q, nil)
+// Parse JSON file into list of spells.
+func load_spells(fileName string) ([]Spell, error) {
+	bytes, err := os.ReadFile(fileName)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	Spells = q.Spells
+	var spells []Spell
+	err = json.Unmarshal(bytes, &spells)
+	if err != nil {
+		return nil, err
+	}
+
+	return spells, nil
 }
