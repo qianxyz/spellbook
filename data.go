@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 )
 
@@ -34,18 +35,16 @@ type Spell struct {
 	}
 }
 
-// Parse JSON file into list of spells.
-func load_spells(fileName string) ([]Spell, error) {
-	bytes, err := os.ReadFile(fileName)
+var Spells []Spell
+
+func init() {
+	bytes, err := os.ReadFile("./5e-SRD-Spells.json")
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-	var spells []Spell
-	err = json.Unmarshal(bytes, &spells)
+	err = json.Unmarshal(bytes, &Spells)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-
-	return spells, nil
 }

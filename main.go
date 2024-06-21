@@ -1,19 +1,17 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-	spells, err := load_spells("./5e-SRD-Spells.json")
-	if err != nil {
-		log.Fatal(err)
-	}
+	e := echo.New()
 
-	for _, spell := range spells {
-		bytes, _ := json.MarshalIndent(spell, "", "  ")
-		fmt.Println(string(bytes))
-	}
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.GET("/", index)
+
+	e.Logger.Fatal(e.Start(":1323"))
 }

@@ -1,0 +1,24 @@
+package main
+
+templ page(spells []Spell) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>Spellbook</title>
+			<link href="css/style.css" rel="stylesheet"/>
+		</head>
+		<body>
+			@spellList(spells)
+		</body>
+	</html>
+}
+
+templ spellList(spells []Spell) {
+	<ul>
+		for _, spell := range spells {
+			<li>{ spell.Name }</li>
+		}
+	</ul>
+}
