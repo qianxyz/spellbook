@@ -11,7 +11,8 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.GET("/", index)
+	e.GET("/", indexHandler)
+	e.GET("/spells", spellListHandler)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

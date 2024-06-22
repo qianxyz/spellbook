@@ -1,6 +1,6 @@
 package main
 
-templ page(spells []Spell) {
+templ index() {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -8,9 +8,19 @@ templ page(spells []Spell) {
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			<title>Spellbook</title>
 			<link href="css/style.css" rel="stylesheet"/>
+			<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
 		</head>
 		<body>
-			@spellList(spells)
+			<h1>Spellbook</h1>
+			<input
+				type="search"
+				name="search"
+				placeholder="Search..."
+				hx-get="spells"
+				hx-trigger="input changed delay:250ms, search, load"
+				hx-target="#spellList"
+			/>
+			<div id="spellList"></div>
 		</body>
 	</html>
 }
