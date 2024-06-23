@@ -84,7 +84,7 @@ func (spell *Spell) CastingTimeString() string {
 func (spell *Spell) RangeString() string {
 	s := spell.Range
 
-	if spell.AreaOfEffect.Type != "" {
+	if spell.Range == "Self" && spell.AreaOfEffect.Type != "" {
 		s += " ("
 		s += strconv.Itoa(spell.AreaOfEffect.Size) + "-foot "
 		s += spell.AreaOfEffect.Type
