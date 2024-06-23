@@ -13,7 +13,6 @@ import (
 // https://www.reddit.com/r/golang/comments/17d12wk/using_echo_with_ahtempl/
 func render(ctx echo.Context, status int, t templ.Component) error {
 	ctx.Response().Writer.WriteHeader(status)
-	ctx.Response().Header().Set(echo.HeaderContentType, echo.MIMETextHTML)
 
 	err := t.Render(context.Background(), ctx.Response().Writer)
 	if err != nil {
