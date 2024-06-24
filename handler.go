@@ -25,11 +25,6 @@ func render(ctx echo.Context, status int, t templ.Component) error {
 	return nil
 }
 
-// Handler for the index page.
-func indexHandler(ctx echo.Context) error {
-	return render(ctx, http.StatusOK, index())
-}
-
 func spellListHandler(ctx echo.Context) error {
 	search := ctx.QueryParam("search")
 

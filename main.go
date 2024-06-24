@@ -11,7 +11,8 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.GET("/", indexHandler)
+	e.Use(middleware.Static("static"))
+
 	e.GET("/spells", spellListHandler)
 	e.GET("/spells/:id", spellDetailHandler)
 
