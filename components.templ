@@ -40,7 +40,7 @@ templ spellList(spells []Spell) {
 					data-bs-target={ "#collapse-" + spell.Id }
 					aria-expanded="false"
 					aria-controls={ "collapse-" + spell.Id }
-					hx-get={ "/spells/" + spell.Id }
+					hx-get={ "spells/" + spell.Id }
 					hx-trigger="mousedown once, touchstart once"
 					hx-target={ "#collapse-" + spell.Id }
 				>
