@@ -3,7 +3,7 @@
 ## TODO
 
 - [x] Active search with HTMX
-- [ ] Load accordion content dynamically
+- [x] Load accordion content dynamically
 - [ ] Load blocks of spells only when revealed
 - [ ] Tabular view of spell info
 - [ ] Advanced search filters & sorting

@@ -47,3 +47,15 @@ func spellListHandler(ctx echo.Context) error {
 
 	return render(ctx, http.StatusOK, spellList(filteredSpells))
 }
+
+func spellDetailHandler(ctx echo.Context) error {
+	spellId := ctx.Param("id")
+
+	for _, s := range Spells {
+		if s.Id == spellId {
+			return render(ctx, http.StatusOK, spellDetail(s))
+		}
+	}
+
+	return ctx.String(http.StatusNotFound, "spell not found")
+}

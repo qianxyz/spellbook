@@ -13,6 +13,7 @@ func main() {
 
 	e.GET("/", indexHandler)
 	e.GET("/spells", spellListHandler)
+	e.GET("/spells/:id", spellDetailHandler)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
