@@ -6,3 +6,16 @@
 	bottom: 15px;
 	z-index: 99;
 }
+
+.col-lvl {
+	text-align: center;
+	display: inline-block;
+	width: 15%;
+	max-width: 100px;
+}
+
+/* placeholder for icon column, icons have width 35px */
+.col-icon {
+	width: 35px;
+	display: inline-block;
+}

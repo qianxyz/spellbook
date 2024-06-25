@@ -18,6 +18,12 @@
   <input class="form-control form-control-lg my-3" type="search" name="search" placeholder="Search..." hx-get="spells"
     hx-trigger="input changed delay:250ms, search, load" hx-target="#spellList" />
 
+  <div class="p-2">
+    <span class="col-icon"></span><!--
+ --><span class="col-lvl"><b>Lvl</b></span><!--
+ --><span><b>Name</b></span>
+  </div>
+
   <div class="accordion accordion-flush" id="spellList"></div>
 
   <a href="#" class="btn btn-light btn-lg" id="back-to-top">&uarr;</a>

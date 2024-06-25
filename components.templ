@@ -1,12 +1,17 @@
 package main
 
+import (
+	"strconv"
+	"strings"
+)
+
 templ spellList(spells []Spell) {
 	for _, spell := range spells {
 		<div class="accordion-item">
 			<h2 class="accordion-header">
 				// trigger on mousedown and touchstart to act on press
 				<button
-					class="accordion-button collapsed"
+					class="accordion-button collapsed p-2"
 					type="button"
 					data-bs-toggle="collapse"
 					data-bs-target={ "#collapse-" + spell.Id }
@@ -16,7 +21,9 @@ templ spellList(spells []Spell) {
 					hx-trigger="mousedown once, touchstart once"
 					hx-target={ "#collapse-" + spell.Id }
 				>
-					{ spell.Name }
+					<img class="rounded" src={ strings.ToLower(spell.School.Name) + ".png" }/>
+					<span class="col-lvl">{ strconv.Itoa(spell.Level) }</span>
+					<span>{ spell.Name }</span>
 				</button>
 			</h2>
 			<div
