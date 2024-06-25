@@ -8,3 +8,4 @@
 - [x] Tabular view of spell info
 - [ ] Advanced search filters & sorting
 - [x] Back to top button
+- [ ] Bookmarks
