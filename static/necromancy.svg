@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 813.66 456.07">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #231f20;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 70px;
+      }
+    </style>
+  </defs>
+  <g id="Necromancy">
+    <path class="cls-1" d="m778.16,290.78c8.82,108.82-99.28,169.83-167.65,101.47-93.76-93.76,146.54-237.75-64.05-328.48-89.03-38.36-190.22-38.36-279.25,0-210.59,90.73,29.71,234.71-64.05,328.48-68.36,68.36-176.47,7.35-167.65-101.47"/>
+  </g>
+</svg>
