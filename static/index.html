@@ -15,8 +15,85 @@
 
 <body class="container-fluid">
 
-  <input class="form-control form-control-lg my-3" type="search" name="search" placeholder="Search..." hx-get="spells"
-    hx-trigger="input changed delay:250ms, search, load" hx-target="#spellList" />
+  <form>
+
+    <div class="input-group my-3">
+      <input class="form-control form-control-lg" type="search" name="search" placeholder="Search..." hx-get="spells"
+        hx-trigger="input changed delay:250ms, search, load" hx-target="#spellList" />
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="collapse"
+        data-bs-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch">Advanced</button>
+    </div>
+
+    <div class="collapse ps-2" id="advancedSearch">
+
+      <div class="mb-3 row">
+        <label for="inputClass" class="col-3 col-form-label">Class</label>
+        <div class="col-9">
+          <select class="form-select" id="inputClass">
+            <option value="" selected>All</option>
+            <option>Bard</option>
+            <option>Cleric</option>
+            <option>Druid</option>
+            <option>Paladin</option>
+            <option>Ranger</option>
+            <option>Sorcerer</option>
+            <option>Warlock</option>
+            <option>Wizard</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="inputSchool" class="col-3 col-form-label">School</label>
+        <div class="col-9">
+          <select class="form-select" id="inputSchool" multiple>
+            <option selected>Abjuration</option>
+            <option selected>Conjuration</option>
+            <option selected>Divination</option>
+            <option selected>Enchantment</option>
+            <option selected>Evocation</option>
+            <option selected>Illusion</option>
+            <option selected>Necromancy</option>
+            <option selected>Transmutation</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-3 col-form-label">Level</label>
+        <div class="col-9">
+          <div class="input-group">
+            <select class="form-select" id="minLevel">
+              <option selected>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+            </select>
+            <span class="input-group-text">-</span>
+            <select class="form-select" id="maxLevel">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option selected>9</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
 
   <div class="p-2">
     <span class="col-icon"></span><!--
