@@ -11,4 +11,7 @@ var sliderC = new Slider("#slider", {
   range: true,
   value: [0, 9],
   tooltip: "hide",
+}).on("change", function (data) {
+  $("#levelMin").text(data.newValue[0]);
+  $("#levelMax").text(data.newValue[1]);
 });

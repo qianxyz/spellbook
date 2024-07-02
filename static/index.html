@@ -37,7 +37,7 @@
       <div class="mb-3 row">
         <label for="inputClass" class="col-3 col-form-label">Class</label>
         <div class="col-9">
-          <select class="selectpicker w-100" id="inputClass" data-style="btn border">
+          <select name="class" class="selectpicker w-100" id="inputClass" data-style="btn border">
             <option value="" selected>All</option>
             <option>Bard</option>
             <option>Cleric</option>
@@ -54,7 +54,8 @@
       <div class="mb-3 row">
         <label for="inputSchool" class="col-3 col-form-label">School</label>
         <div class="col-9">
-          <select class="selectpicker w-100" id="inputSchool" multiple data-style="btn border" data-actions-box="true">
+          <select name="school" class="selectpicker w-100" id="inputSchool" multiple data-style="btn border"
+            data-actions-box="true">
             <option>Abjuration</option>
             <option>Conjuration</option>
             <option>Divination</option>
@@ -70,9 +71,9 @@
       <div class="mb-3 row">
         <label class="col-3 col-form-label">Level</label>
         <div class="col-9 d-flex align-items-center">
-          <span class="px-2">0</span>
-          <input id="slider" type="text" />
-          <span class="px-2">9</span>
+          <span id="levelMin">0</span>
+          <input name="level" id="slider" type="text" />
+          <span id="levelMax">9</span>
         </div>
       </div>
 

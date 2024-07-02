@@ -29,8 +29,15 @@
 	width: 100%;
 }
 
+#levelMin,
+#levelMax {
+	width: 40px;
+	text-align: center;
+}
+
 #slider .slider-handle {
 	background: #666;
+	cursor: pointer;
 }
 
 #slider .slider-selection {
