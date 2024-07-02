@@ -25,14 +25,13 @@
 }
 
 #slider {
-	margin: 0 20px;
+	margin: 0 10px;
 	width: 100%;
 }
 
 #levelMin,
 #levelMax {
-	padding: 0 4px;
-	width: 40px;
+	width: 30px;
 	text-align: center;
 }
 
