@@ -6,6 +6,7 @@
 - [x] Load accordion content dynamically
 - [ ] ~~Load blocks of spells only when revealed~~
 - [x] Tabular view of spell info
-- [ ] Advanced search filters & sorting
+- [x] Advanced search filters
+- [ ] Sort by level or name
 - [x] Back to top button
 - [ ] Bookmarks

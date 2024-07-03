@@ -23,11 +23,14 @@
 
 <body class="container-fluid">
 
-  <form>
+  <form hx-get="spells" hx-target="#spellList" hx-trigger="load,
+      input changed delay:250ms from:input[type='search'],
+      search from:input[type='search'],
+      change from:select,
+      changeLevel delay:250ms from:body">
 
     <div class="input-group my-3">
-      <input class="form-control form-control-lg" type="search" name="search" placeholder="Search..." hx-get="spells"
-        hx-trigger="input changed delay:250ms, search, load" hx-target="#spellList" />
+      <input class="form-control form-control-lg" type="search" name="q" placeholder="Search..." />
       <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="collapse"
         data-bs-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch">Advanced</button>
     </div>
@@ -69,7 +72,7 @@
       </div>
 
       <div class="mb-3 row">
-        <label class="col-3 col-form-label">Level</label>
+        <label for="slider" class="col-3 col-form-label">Level</label>
         <div class="col-9 d-flex align-items-center">
           <span id="levelMin">0</span>
           <input name="level" id="slider" type="text" />

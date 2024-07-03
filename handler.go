@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/a-h/templ"
@@ -26,18 +27,66 @@ func render(ctx echo.Context, status int, t templ.Component) error {
 }
 
 func spellListHandler(ctx echo.Context) error {
-	search := ctx.QueryParam("search")
+	query := ctx.QueryParam("q")
+	class := ctx.QueryParam("class")
+	schools := ctx.QueryParams()["school"]
+
+	level := ctx.QueryParam("level")
+	levels := strings.Split(level, ",")
+	levelMin, err := strconv.Atoi(levels[0])
+	if err != nil {
+		levelMin = 0
+	}
+	levelMax, err := strconv.Atoi(levels[1])
+	if err != nil {
+		levelMax = 9
+	}
 
 	// filter spells by search query
 	var filteredSpells []Spell
 	for _, spell := range Spells {
 		// query contained in spell name, case-insensitive
-		if strings.Contains(
+		if !strings.Contains(
 			strings.ToLower(spell.Name),
-			strings.ToLower(search),
+			strings.ToLower(query),
 		) {
-			filteredSpells = append(filteredSpells, spell)
+			continue
 		}
+
+		// filter by class
+		if class != "" {
+			hasClass := false
+			for _, c := range spell.Classes {
+				if c.Name == class {
+					hasClass = true
+					break
+				}
+			}
+			if !hasClass {
+				continue
+			}
+		}
+
+		// filter by school
+		if len(schools) > 0 {
+			hasSchool := false
+			for _, s := range schools {
+				if spell.School.Name == s {
+					hasSchool = true
+					break
+				}
+			}
+			if !hasSchool {
+				continue
+			}
+		}
+
+		// filter by level
+		if spell.Level < levelMin || spell.Level > levelMax {
+			continue
+		}
+
+		filteredSpells = append(filteredSpells, spell)
 	}
 
 	return render(ctx, http.StatusOK, spellList(filteredSpells))

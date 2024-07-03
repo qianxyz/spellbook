@@ -1,17 +1,22 @@
-const backToTop = document.getElementById("back-to-top");
-
-window.addEventListener("scroll", () => {
-  backToTop.style.display = window.scrollY > 100 ? "block" : "none";
+$(window).on("scroll", function () {
+  if ($(this).scrollTop() > 100) {
+    $("#back-to-top").fadeIn();
+  } else {
+    $("#back-to-top").fadeOut();
+  }
 });
 
-var sliderC = new Slider("#slider", {
-  id: "slider",
-  min: 0,
-  max: 9,
-  range: true,
-  value: [0, 9],
-  tooltip: "hide",
-}).on("change", function (data) {
-  $("#levelMin").text(data.newValue[0]);
-  $("#levelMax").text(data.newValue[1]);
-});
+$("#slider")
+  .slider({
+    id: "slider",
+    min: 0,
+    max: 9,
+    range: true,
+    value: [0, 9],
+    tooltip: "hide",
+  })
+  .on("change", function (data) {
+    $("#levelMin").text(data.value.newValue[0]);
+    $("#levelMax").text(data.value.newValue[1]);
+    document.body.dispatchEvent(new Event("changeLevel"));
+  });
