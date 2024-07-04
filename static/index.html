@@ -27,7 +27,7 @@
       input changed delay:250ms from:input[type='search'],
       search from:input[type='search'],
       change from:select,
-      changeLevel delay:250ms from:body">
+      change delay:250ms from:#slider">
 
     <div class="input-group my-3">
       <input class="form-control form-control-lg" type="search" name="q" placeholder="Search..." />
@@ -74,9 +74,9 @@
       <div class="mb-3 row">
         <label for="slider" class="col-3 col-form-label">Level</label>
         <div class="col-9 d-flex align-items-center">
-          <span id="levelMin">0</span>
-          <input name="level" id="slider" type="text" />
-          <span id="levelMax">9</span>
+          <input type="number" readonly class="form-control-plaintext" id="levelMin" name="levelMin" value="0">
+          <input id="slider" type="text" />
+          <input type="number" readonly class="form-control-plaintext" id="levelMax" name="levelMax" value="9">
         </div>
       </div>
 
@@ -100,8 +100,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"
-    integrity="sha512-jGR1T3dQerLCSm/IGEGbndPwzszJBlKQ5Br9vuB0Pw2iyxOy+7AK+lJcCC8eaXyz/9du+bkCy4HXxByhxkHf+w=="
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta3/js/bootstrap-select.min.js"
     integrity="sha512-yrOmjPdp8qH8hgLfWpSFhC/+R9Cj9USL8uJxYIveJZGAiedxyIxwNw4RsLDlcjNlIRR4kkHaDHSmNHAkxFTmgg=="

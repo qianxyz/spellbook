@@ -26,10 +26,11 @@ func render(ctx echo.Context, status int, t templ.Component) error {
 }
 
 type Query struct {
-	Q      string
-	Class  string
-	School []string
-	Level  []int
+	Q        string   `query:"q"`
+	Class    string   `query:"class"`
+	School   []string `query:"school"`
+	LevelMin int      `query:"levelMin"`
+	LevelMax int      `query:"levelMax"`
 }
 
 func (spell *Spell) Satisfies(query *Query) bool {
@@ -70,7 +71,7 @@ func (spell *Spell) Satisfies(query *Query) bool {
 	}
 
 	// filter by Level
-	if spell.Level < query.Level[0] || spell.Level > query.Level[1] {
+	if spell.Level < query.LevelMin || spell.Level > query.LevelMax {
 		return false
 	}
 
@@ -79,13 +80,8 @@ func (spell *Spell) Satisfies(query *Query) bool {
 
 func spellListHandler(ctx echo.Context) error {
 	var query Query
-	err := echo.QueryParamsBinder(ctx).
-		String("q", &query.Q).
-		String("class", &query.Class).
-		Strings("school", &query.School).
-		BindWithDelimiter("level", &query.Level, ",").
-		BindError()
-	if err != nil || len(query.Level) < 2 {
+	err := ctx.Bind(&query)
+	if err != nil {
 		return ctx.String(http.StatusBadRequest, "bad request")
 	}
 

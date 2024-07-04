@@ -12,11 +12,11 @@ $("#slider")
     min: 0,
     max: 9,
     range: true,
-    value: [0, 9],
+    value: [parseInt($("#levelMin").val()), parseInt($("#levelMax").val())],
     tooltip: "hide",
   })
   .on("change", function (data) {
-    $("#levelMin").text(data.value.newValue[0]);
-    $("#levelMax").text(data.value.newValue[1]);
-    document.body.dispatchEvent(new Event("changeLevel"));
+    $("#levelMin").val(data.value.newValue[0]);
+    $("#levelMax").val(data.value.newValue[1]);
+    $("#slider")[0].dispatchEvent(new Event("change"));
   });
