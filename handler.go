@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/a-h/templ"
@@ -26,67 +25,76 @@ func render(ctx echo.Context, status int, t templ.Component) error {
 	return nil
 }
 
-func spellListHandler(ctx echo.Context) error {
-	query := ctx.QueryParam("q")
-	class := ctx.QueryParam("class")
-	schools := ctx.QueryParams()["school"]
+type Query struct {
+	Q      string
+	Class  string
+	School []string
+	Level  []int
+}
 
-	level := ctx.QueryParam("level")
-	levels := strings.Split(level, ",")
-	levelMin, err := strconv.Atoi(levels[0])
-	if err != nil {
-		levelMin = 0
+func (spell *Spell) Satisfies(query *Query) bool {
+	// query contained in spell name, case-insensitive
+	if !strings.Contains(
+		strings.ToLower(spell.Name),
+		strings.ToLower(query.Q),
+	) {
+		return false
 	}
-	levelMax, err := strconv.Atoi(levels[1])
-	if err != nil {
-		levelMax = 9
+
+	// filter by class
+	if query.Class != "" {
+		isOfClass := false
+		for _, c := range spell.Classes {
+			if c.Name == query.Class {
+				isOfClass = true
+				break
+			}
+		}
+		if !isOfClass {
+			return false
+		}
+	}
+
+	// filter by school
+	if len(query.School) > 0 {
+		isOfSchool := false
+		for _, s := range query.School {
+			if spell.School.Name == s {
+				isOfSchool = true
+				break
+			}
+		}
+		if !isOfSchool {
+			return false
+		}
+	}
+
+	// filter by Level
+	if spell.Level < query.Level[0] || spell.Level > query.Level[1] {
+		return false
+	}
+
+	return true
+}
+
+func spellListHandler(ctx echo.Context) error {
+	var query Query
+	err := echo.QueryParamsBinder(ctx).
+		String("q", &query.Q).
+		String("class", &query.Class).
+		Strings("school", &query.School).
+		BindWithDelimiter("level", &query.Level, ",").
+		BindError()
+	if err != nil || len(query.Level) < 2 {
+		return ctx.String(http.StatusBadRequest, "bad request")
 	}
 
 	// filter spells by search query
 	var filteredSpells []Spell
 	for _, spell := range Spells {
-		// query contained in spell name, case-insensitive
-		if !strings.Contains(
-			strings.ToLower(spell.Name),
-			strings.ToLower(query),
-		) {
-			continue
+		if spell.Satisfies(&query) {
+			filteredSpells = append(filteredSpells, spell)
 		}
-
-		// filter by class
-		if class != "" {
-			hasClass := false
-			for _, c := range spell.Classes {
-				if c.Name == class {
-					hasClass = true
-					break
-				}
-			}
-			if !hasClass {
-				continue
-			}
-		}
-
-		// filter by school
-		if len(schools) > 0 {
-			hasSchool := false
-			for _, s := range schools {
-				if spell.School.Name == s {
-					hasSchool = true
-					break
-				}
-			}
-			if !hasSchool {
-				continue
-			}
-		}
-
-		// filter by level
-		if spell.Level < levelMin || spell.Level > levelMax {
-			continue
-		}
-
-		filteredSpells = append(filteredSpells, spell)
 	}
 
 	return render(ctx, http.StatusOK, spellList(filteredSpells))
