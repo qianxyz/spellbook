@@ -20,3 +20,34 @@ $("#slider")
     $("#levelMax").val(data.value.newValue[1]);
     $("#slider")[0].dispatchEvent(new Event("change"));
   });
+
+const $sort = $("input[name=sort]");
+const $sortLevelIcon = $("#thLevel i");
+const $sortNameIcon = $("#thName i");
+
+const sortIcons = {
+  level: ["fa-solid fa-sort-up", "fa-solid fa-sort"],
+  "-level": ["fa-solid fa-sort-down", "fa-solid fa-sort"],
+  name: ["fa-solid fa-sort", "fa-solid fa-sort-up"],
+  "-name": ["fa-solid fa-sort", "fa-solid fa-sort-down"],
+};
+
+function refreshSortIcons() {
+  const [levelIcon, nameIcon] = sortIcons[$sort.val()];
+  $sortLevelIcon.attr("class", levelIcon);
+  $sortNameIcon.attr("class", nameIcon);
+}
+
+refreshSortIcons();
+
+$("#thLevel").on("click", function () {
+  $sort.val($sort.val() === "level" ? "-level" : "level");
+  refreshSortIcons();
+  $sort[0].dispatchEvent(new Event("change"));
+});
+
+$("#thName").on("click", function () {
+  $sort.val($sort.val() === "name" ? "-name" : "name");
+  refreshSortIcons();
+  $sort[0].dispatchEvent(new Event("change"));
+});

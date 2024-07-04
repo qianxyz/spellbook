@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net/http"
+	"slices"
 	"strings"
 
 	"github.com/a-h/templ"
@@ -31,6 +32,7 @@ type Query struct {
 	School   []string `query:"school"`
 	LevelMin int      `query:"levelMin"`
 	LevelMax int      `query:"levelMax"`
+	Sort     string   `query:"sort"`
 }
 
 func (spell *Spell) Satisfies(query *Query) bool {
@@ -91,6 +93,21 @@ func spellListHandler(ctx echo.Context) error {
 		if spell.Satisfies(&query) {
 			filteredSpells = append(filteredSpells, spell)
 		}
+	}
+
+	// sort spells
+	switch query.Sort {
+	case "name": // data already sorted by name, do nothing
+	case "-name":
+		slices.Reverse(filteredSpells)
+	case "level":
+		slices.SortStableFunc(filteredSpells, func(a, b Spell) int {
+			return a.Level - b.Level
+		})
+	case "-level":
+		slices.SortStableFunc(filteredSpells, func(a, b Spell) int {
+			return b.Level - a.Level
+		})
 	}
 
 	return render(ctx, http.StatusOK, spellList(filteredSpells))

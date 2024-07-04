@@ -18,16 +18,18 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css"
     integrity="sha512-3q8fi8M0VS+X/3n64Ndpp6Bit7oXSiyCnzmlx6IDBLGlY5euFySyJ46RUlqIVs0DPCGOypqP8IRk/EyPvU28mQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://kit.fontawesome.com/00f0b3dfe6.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="container-fluid">
 
   <form hx-get="spells" hx-target="#spellList" hx-trigger="load,
-      input changed delay:250ms from:input[type='search'],
-      search from:input[type='search'],
+      input changed delay:250ms from:input[name=q],
+      search from:input[name=q],
       change from:select,
-      change delay:250ms from:#slider">
+      change delay:250ms from:#slider,
+      change from:input[name=sort]">
 
     <div class="input-group my-3">
       <input class="form-control form-control-lg" type="search" name="q" placeholder="Search..." />
@@ -84,12 +86,14 @@
 
     </div>
 
+    <input type="hidden" name="sort" value="name">
+
   </form>
 
   <div class="p-2 mb-2">
     <span class="col-icon"></span><!--
- --><span class="col-lvl"><b>Lvl</b></span><!--
- --><span><b>Name</b></span>
+ --><span id="thLevel" class="col-lvl"><b>Lv</b> <i class="fa-solid fa-sort"></i></span><!--
+ --><span id="thName"><b>Name</b> <i class="fa-solid fa-sort-up"></i></span>
   </div>
 
   <div class="accordion accordion-flush" id="spellList"></div>
