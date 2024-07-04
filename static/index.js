@@ -40,13 +40,15 @@ function refreshSortIcons() {
 
 refreshSortIcons();
 
-$("#thLevel").on("click", function () {
+$("#thLevel").on("touchstart mousedown", function (event) {
+  event.preventDefault();
   $sort.val($sort.val() === "level" ? "-level" : "level");
   refreshSortIcons();
   $sort[0].dispatchEvent(new Event("change"));
 });
 
-$("#thName").on("click", function () {
+$("#thName").on("touchstart mousedown", function (event) {
+  event.preventDefault();
   $sort.val($sort.val() === "name" ? "-name" : "name");
   refreshSortIcons();
   $sort[0].dispatchEvent(new Event("change"));
