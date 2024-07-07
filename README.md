@@ -9,4 +9,4 @@
 - [x] Advanced search filters
 - [x] Sort by level or name
 - [x] Back to top button
-- [ ] Bookmarks
+- [x] Bookmarks
