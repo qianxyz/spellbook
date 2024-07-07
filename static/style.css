@@ -18,9 +18,9 @@
 	max-width: 100px;
 }
 
-/* placeholder for icon column, icons have width 32px */
+/* placeholder for icon column, icons have width 28px */
 .col-icon {
-	width: 32px;
+	width: 28px;
 	display: inline-block;
 }
 

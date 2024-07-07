@@ -137,7 +137,7 @@ func spellItem(spell Spell, bookmarked bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><img class=\"flex-shrink-0\" width=\"32\" height=\"32\" src=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><img class=\"flex-shrink-0\" width=\"28\" height=\"28\" src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
