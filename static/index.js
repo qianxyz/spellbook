@@ -58,11 +58,21 @@ var bookmarks = Cookies.get("bookmarks");
 bookmarks = bookmarks ? bookmarks.split(",") : [];
 Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
 
+const $bookmarked = $("input[name=bookmarked]");
+const $bookmarkedIcon = $("#thBookmark");
+
 $("#spellList").on("click", ".fa-bookmark", function () {
   const spellId = $(this).data("spell-id");
   if (bookmarks.includes(spellId)) {
     bookmarks = bookmarks.filter((id) => id !== spellId);
-    $(this).removeClass("fa-solid").addClass("fa-regular");
+
+    if ($bookmarked.val() === "true") {
+      // if in bookmarked-only mode, refresh the list
+      $bookmarked[0].dispatchEvent(new Event("change"));
+    } else {
+      // just update the icon
+      $(this).removeClass("fa-solid").addClass("fa-regular");
+    }
   } else {
     bookmarks.push(spellId);
     $(this).removeClass("fa-regular").addClass("fa-solid");
@@ -70,9 +80,6 @@ $("#spellList").on("click", ".fa-bookmark", function () {
 
   Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
 });
-
-const $bookmarked = $("input[name=bookmarked]");
-const $bookmarkedIcon = $("#thBookmark");
 
 function refreshBookmarkIcon() {
   if ($bookmarked.val() === "true") {
