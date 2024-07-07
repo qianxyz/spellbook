@@ -3,18 +3,10 @@ package main
 import (
 	"strconv"
 	"strings"
+	"slices"
 )
 
-func bookmarked(spell Spell, bookmarks []string) bool {
-	for _, bookmark := range bookmarks {
-		if spell.Id == bookmark {
-			return true
-		}
-	}
-	return false
-}
-
-templ spellList(spells []Spell, bookmarks []string) {
+templ spellList(spells []Spell, bookmarks []string, bookmarked bool) {
 	if len(spells) == 0 {
 		<div class="alert alert-light text-center" role="alert">
 			No spells found.
@@ -22,20 +14,23 @@ templ spellList(spells []Spell, bookmarks []string) {
 	} else {
 		for _, spell := range spells {
 			<div class="accordion-item">
-				@spellItem(spell, bookmarked(spell, bookmarks))
+				@spellItem(spell, bookmarks, bookmarked)
 			</div>
 		}
 	}
 }
 
-func bookmarkIcon(bookmarked bool) string {
+func bookmarkIcon(spell Spell, bookmarks []string, bookmarked bool) string {
 	if bookmarked {
-		return "fa-solid"
+		return "fa-solid fa-xmark"
+	} else if slices.Contains(bookmarks, spell.Id) {
+		return "fa-solid fa-bookmark"
+	} else {
+		return "fa-regular fa-bookmark"
 	}
-	return "fa-regular"
 }
 
-templ spellItem(spell Spell, bookmarked bool) {
+templ spellItem(spell Spell, bookmarks []string, bookmarked bool) {
 	<h2 class="accordion-header">
 		// trigger on mousedown and touchstart to act on press
 		<div
@@ -58,7 +53,7 @@ templ spellItem(spell Spell, bookmarked bool) {
 			<span class="col-lvl flex-shrink-0">{ strconv.Itoa(spell.Level) }</span>
 			<span class="flex-grow-1 me-3">{ spell.Name }</span>
 			<i
-				class={ bookmarkIcon(bookmarked) + " fa-bookmark" }
+				class={ bookmarkIcon(spell, bookmarks, bookmarked) }
 				data-spell-id={ spell.Id }
 				data-bs-toggle="collapse"
 				data-bs-target

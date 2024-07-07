@@ -65,20 +65,21 @@ $("#spellList").on("click", ".fa-bookmark", function () {
   const spellId = $(this).data("spell-id");
   if (bookmarks.includes(spellId)) {
     bookmarks = bookmarks.filter((id) => id !== spellId);
-
-    if ($bookmarked.val() === "true") {
-      // if in bookmarked-only mode, refresh the list
-      $bookmarked[0].dispatchEvent(new Event("change"));
-    } else {
-      // just update the icon
-      $(this).removeClass("fa-solid").addClass("fa-regular");
-    }
+    $(this).removeClass("fa-solid").addClass("fa-regular");
   } else {
     bookmarks.push(spellId);
     $(this).removeClass("fa-regular").addClass("fa-solid");
   }
 
   Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
+});
+
+$("#spellList").on("click", ".fa-xmark", function () {
+  const spellId = $(this).data("spell-id");
+  bookmarks = bookmarks.filter((id) => id !== spellId);
+
+  Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
+  $bookmarked[0].dispatchEvent(new Event("change"));
 });
 
 function refreshBookmarkIcon() {

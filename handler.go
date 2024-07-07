@@ -94,12 +94,10 @@ func spellListHandler(ctx echo.Context) error {
 		return ctx.String(http.StatusBadRequest, "bad request")
 	}
 
-	var bookmarks []string
 	cookie, err := ctx.Cookie("bookmarks")
 	if err == nil {
-		bookmarks = strings.Split(cookie.Value, "%2C") // comma
+		query.Bookmarks = strings.Split(cookie.Value, "%2C") // comma
 	}
-	query.Bookmarks = bookmarks
 
 	// filter spells by search query
 	var filteredSpells []Spell
@@ -124,7 +122,8 @@ func spellListHandler(ctx echo.Context) error {
 		})
 	}
 
-	return render(ctx, http.StatusOK, spellList(filteredSpells, bookmarks))
+	return render(ctx, http.StatusOK, spellList(
+		filteredSpells, query.Bookmarks, query.Bookmarked))
 }
 
 func spellDetailHandler(ctx echo.Context) error {

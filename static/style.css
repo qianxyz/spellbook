@@ -59,7 +59,8 @@ input[type=number] {
 	cursor: pointer;
 }
 
-.fa-bookmark {
+.fa-bookmark,
+.fa-xmark {
 	order: 100;
 	display: inline-block;
 	font-size: 1.25em;
