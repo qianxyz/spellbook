@@ -180,7 +180,7 @@ func spellItem(spell Spell, bookmarked bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 = []any{bookmarkIcon(bookmarked) + " fa-bookmark fa-lg mx-3"}
+		var templ_7745c5c3_Var10 = []any{bookmarkIcon(bookmarked) + " fa-bookmark"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var10...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

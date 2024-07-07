@@ -58,3 +58,10 @@ input[type=number] {
 #thName {
 	cursor: pointer;
 }
+
+.fa-bookmark {
+	display: inline-block;
+	font-size: 1.25em;
+	height: 32px;
+	padding: 6px 16px;
+}

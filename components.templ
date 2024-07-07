@@ -58,7 +58,7 @@ templ spellItem(spell Spell, bookmarked bool) {
 			<span class="col-lvl flex-shrink-0">{ strconv.Itoa(spell.Level) }</span>
 			<span class="flex-grow-1">{ spell.Name }</span>
 			<i
-				class={ bookmarkIcon(bookmarked) + " fa-bookmark fa-lg mx-3" }
+				class={ bookmarkIcon(bookmarked) + " fa-bookmark" }
 				data-spell-id={ spell.Id }
 				data-bs-toggle="collapse"
 				data-bs-target
