@@ -5,7 +5,16 @@ import (
 	"strings"
 )
 
-templ spellList(spells []Spell) {
+func bookmarked(spell Spell, bookmarks []string) bool {
+	for _, bookmark := range bookmarks {
+		if spell.Id == bookmark {
+			return true
+		}
+	}
+	return false
+}
+
+templ spellList(spells []Spell, bookmarks []string) {
 	if len(spells) == 0 {
 		<div class="alert alert-light text-center" role="alert">
 			No spells found.
@@ -13,48 +22,77 @@ templ spellList(spells []Spell) {
 	} else {
 		for _, spell := range spells {
 			<div class="accordion-item">
-				<h2 class="accordion-header">
-					// trigger on mousedown and touchstart to act on press
-					<button
-						class="accordion-button collapsed p-2"
-						type="button"
-						data-bs-toggle="collapse"
-						data-bs-target={ "#collapse-" + spell.Id }
-						aria-expanded="false"
-						aria-controls={ "collapse-" + spell.Id }
-						hx-get={ "spells/" + spell.Id }
-						hx-trigger="mousedown once, touchstart once"
-						hx-target={ "#collapse-" + spell.Id }
-					>
-						<img width="32" height="32" src={ strings.ToLower(spell.School.Name) + ".svg" }/>
-						<span class="col-lvl">{ strconv.Itoa(spell.Level) }</span>
-						<span>{ spell.Name }</span>
-					</button>
-				</h2>
-				<div
-					id={ "collapse-" + spell.Id }
-					class="accordion-collapse collapse"
-				></div>
+				@spellItem(spell, bookmarked(spell, bookmarks))
 			</div>
 		}
 	}
+}
+
+func bookmarkIcon(bookmarked bool) string {
+	if bookmarked {
+		return "fa-solid"
+	}
+	return "fa-regular"
+}
+
+templ spellItem(spell Spell, bookmarked bool) {
+	<h2 class="accordion-header">
+		// trigger on mousedown and touchstart to act on press
+		<div
+			class="accordion-button collapsed p-2"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target={ "#collapse-" + spell.Id }
+			aria-expanded="false"
+			aria-controls={ "collapse-" + spell.Id }
+			hx-get={ "spells/" + spell.Id }
+			hx-trigger="mousedown once, touchstart once"
+			hx-target={ "#collapse-" + spell.Id }
+		>
+			<img
+				class="flex-shrink-0"
+				width="32"
+				height="32"
+				src={ strings.ToLower(spell.School.Name) + ".svg" }
+			/>
+			<span class="col-lvl flex-shrink-0">{ strconv.Itoa(spell.Level) }</span>
+			<span class="flex-grow-1">{ spell.Name }</span>
+			<i
+				class={ bookmarkIcon(bookmarked) + " fa-bookmark fa-lg mx-3" }
+				data-spell-id={ spell.Id }
+				data-bs-toggle="collapse"
+				data-bs-target
+			></i>
+		</div>
+	</h2>
+	<div
+		id={ "collapse-" + spell.Id }
+		class="accordion-collapse collapse"
+	></div>
 }
 
 templ spellDetail(spell Spell) {
 	<div class="accordion-body">
 		<p><em>{ spell.LevelSchoolString() }</em></p>
 		<p>
-			<strong>Casting Time:</strong> { spell.CastingTimeString() }
+			<strong>Casting Time:</strong>
+			{ spell.CastingTimeString() }
 			<br/>
-			<strong>Range:</strong> { spell.RangeString() }
+			<strong>Range:</strong>
+			{ spell.RangeString() }
 			<br/>
-			<strong>Components:</strong> { spell.ComponentsString() }
+			<strong>Components:</strong>
+			{ spell.ComponentsString() }
 			<br/>
-			<strong>Duration:</strong> { spell.DurationString() }
+			<strong>Duration:</strong>
+			{ spell.DurationString() }
 		</p>
 		@templ.Raw(spell.DescriptionString())
 		if len(spell.HigherLevel) > 0 {
-			<p><strong><em>At Higher Levels.</em></strong> { spell.HigherLevelString() }</p>
+			<p>
+				<strong><em>At Higher Levels.</em></strong>
+				{ spell.HigherLevelString() }
+			</p>
 		}
 	</div>
 }
