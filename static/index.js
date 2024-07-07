@@ -54,10 +54,11 @@ $("#thName").on("touchstart mousedown", function (event) {
   $sort[0].dispatchEvent(new Event("change"));
 });
 
-$("#spellList").on("click", ".fa-bookmark", function () {
-  let bookmarks = Cookies.get("bookmarks");
-  bookmarks = bookmarks ? bookmarks.split(",") : [];
+var bookmarks = Cookies.get("bookmarks");
+bookmarks = bookmarks ? bookmarks.split(",") : [];
+Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
 
+$("#spellList").on("click", ".fa-bookmark", function () {
   const spellId = $(this).data("spell-id");
   if (bookmarks.includes(spellId)) {
     bookmarks = bookmarks.filter((id) => id !== spellId);
@@ -67,5 +68,5 @@ $("#spellList").on("click", ".fa-bookmark", function () {
     $(this).removeClass("fa-regular").addClass("fa-solid");
   }
 
-  Cookies.set("bookmarks", bookmarks.join(","), { path: "" });
+  Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
 });
