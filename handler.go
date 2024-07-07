@@ -27,12 +27,14 @@ func render(ctx echo.Context, status int, t templ.Component) error {
 }
 
 type Query struct {
-	Q        string   `query:"q"`
-	Class    string   `query:"class"`
-	School   []string `query:"school"`
-	LevelMin int      `query:"levelMin"`
-	LevelMax int      `query:"levelMax"`
-	Sort     string   `query:"sort"`
+	Q          string   `query:"q"`
+	Class      string   `query:"class"`
+	School     []string `query:"school"`
+	LevelMin   int      `query:"levelMin"`
+	LevelMax   int      `query:"levelMax"`
+	Sort       string   `query:"sort"`
+	Bookmarked bool     `query:"bookmarked"`
+	Bookmarks  []string
 }
 
 func (spell *Spell) Satisfies(query *Query) bool {
@@ -77,6 +79,11 @@ func (spell *Spell) Satisfies(query *Query) bool {
 		return false
 	}
 
+	// filter by bookmarked
+	if query.Bookmarked && !slices.Contains(query.Bookmarks, spell.Id) {
+		return false
+	}
+
 	return true
 }
 
@@ -92,6 +99,7 @@ func spellListHandler(ctx echo.Context) error {
 	if err == nil {
 		bookmarks = strings.Split(cookie.Value, "%2C") // comma
 	}
+	query.Bookmarks = bookmarks
 
 	// filter spells by search query
 	var filteredSpells []Spell

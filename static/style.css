@@ -67,3 +67,8 @@ input[type=number] {
 	padding: 6px 16px;
 	margin-right: -16px;
 }
+
+#thBookmark {
+	margin-top: -4px;
+	cursor: pointer;
+}

@@ -70,3 +70,22 @@ $("#spellList").on("click", ".fa-bookmark", function () {
 
   Cookies.set("bookmarks", bookmarks.join(","), { expires: 400, path: "" });
 });
+
+const $bookmarked = $("input[name=bookmarked]");
+const $bookmarkedIcon = $("#thBookmark");
+
+function refreshBookmarkIcon() {
+  if ($bookmarked.val() === "true") {
+    $bookmarkedIcon.removeClass("fa-regular").addClass("fa-solid");
+  } else {
+    $bookmarkedIcon.removeClass("fa-solid").addClass("fa-regular");
+  }
+}
+
+refreshBookmarkIcon();
+
+$bookmarkedIcon.on("click", function () {
+  $bookmarked.val($bookmarked.val() === "true" ? "false" : "true");
+  refreshBookmarkIcon();
+  $bookmarked[0].dispatchEvent(new Event("change"));
+});

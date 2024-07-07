@@ -29,7 +29,8 @@
       search from:input[name=q],
       change from:select,
       change delay:250ms from:#slider,
-      change from:input[name=sort]">
+      change from:input[name=sort],
+      change from:input[name=bookmarked]">
 
     <div class="input-group my-3">
       <input class="form-control form-control-lg" type="search" name="q" placeholder="Search..." />
@@ -87,6 +88,7 @@
     </div>
 
     <input type="hidden" name="sort" value="name">
+    <input type="hidden" name="bookmarked" value="false">
 
   </form>
 
@@ -94,6 +96,7 @@
     <span class="col-icon"></span><!--
  --><span id="thLevel" class="col-lvl"><b>Lv</b> <i class="fa-solid fa-sort"></i></span><!--
  --><span id="thName"><b>Name</b> <i class="fa-solid fa-sort-up"></i></span>
+    <i id="thBookmark" class="fa-regular fa-bookmark float-end"></i>
   </div>
 
   <div class="accordion accordion-flush" id="spellList"></div>
