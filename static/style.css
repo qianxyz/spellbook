@@ -64,5 +64,6 @@ input[type=number] {
 	display: inline-block;
 	font-size: 1.25em;
 	height: 32px;
-	padding: 6px 8px 6px 16px;
+	padding: 6px 16px;
+	margin-right: -16px;
 }
