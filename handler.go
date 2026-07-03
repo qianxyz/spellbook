@@ -88,7 +88,8 @@ func (spell *Spell) Satisfies(query *Query) bool {
 }
 
 func spellListHandler(ctx echo.Context) error {
-	var query Query
+	// default the upper bound
+	query := Query{LevelMax: 9}
 	err := ctx.Bind(&query)
 	if err != nil {
 		return ctx.String(http.StatusBadRequest, "bad request")
