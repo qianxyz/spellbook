@@ -1,0 +1,5 @@
+services:
+  spellbook:
+    build: .
+    ports:
+      - "1323:1323"
